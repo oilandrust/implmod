@@ -1,0 +1,76 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{GPP{\etalchar{+}}10}
+
+\bibitem[AJ04]{Araujo:2004:CDP:1025131.1026262}
+Bruno Rodrigues~de Araujo and Joaquim Armando~Pires Jorge.
+\newblock Curvature dependent polygonization of implicit surfaces.
+\newblock In {\em Proceedings of the Computer Graphics and Image Processing,
+  XVII Brazilian Symposium}, pages 266--273, Washington, DC, USA, 2004. IEEE
+  Computer Society.
+
+\bibitem[ASD{\etalchar{+}}03]{alliez03anisotropic}
+Pierre Alliez, David~C. Steiner, Devillers Devillers, Bruno L{\'{e}}vy, and
+  Mathieu Desbrun.
+\newblock {Anisotropic polygonal remeshing}.
+\newblock In {\em Proceedings of ACM SIGGRAPH 2003}, volume 22(3) of {\em ACM
+  Transactions on Graphics}, pages 485--493. ACM Press, 2003.
+
+\bibitem[Blo95]{Bloomenthal:1996:SDN:238973}
+Jules Bloomenthal.
+\newblock {\em Skeletal design of natural forms}.
+\newblock PhD thesis, Calgary, Alta., Canada, Canada, 1995.
+\newblock UMI Order No. GAXNN-03088.
+
+\bibitem[FNN94]{Fukuyama94amethod}
+Tomoyuki~Nishita Fukuyama, Tomoyuki Nishita, and Eihachiro Nakamae.
+\newblock A method for displaying metaballs by using bezier clipping.
+\newblock {\em Computer Graphics Forum}, 13:271--280, 1994.
+
+\bibitem[FWB04]{1309194}
+P.~Felkel, R.~Wegenkittl, and K.~Buhler.
+\newblock Surface models of tube trees.
+\newblock In {\em Computer Graphics International, 2004. Proceedings}, pages 70
+  --77, 2004.
+
+\bibitem[GPP{\etalchar{+}}10]{Gourmel-2010-FBVH}
+Olivier Gourmel, Anthony Pajot, Mathias Paulin, Loic Barthe, and Pierre Poulin.
+\newblock Fitted bvh for fast raytracing of metaballs.
+\newblock {\em Computer Graphics Forum}, 29(2):281--288, may 2010.
+
+\bibitem[JLW10]{CGF:CGF1805}
+Zhongping Ji, Ligang Liu, and Yigang Wang.
+\newblock B-mesh: A modeling system for base meshes of 3d articulated shapes.
+\newblock {\em Computer Graphics Forum}, 29(7):2169--2177, 2010.
+
+\bibitem[LB06]{Loop:2006:RGR:1179352.1141939}
+Charles Loop and Jim Blinn.
+\newblock Real-time gpu rendering of piecewise algebraic surfaces.
+\newblock In {\em ACM SIGGRAPH 2006 Papers}, SIGGRAPH '06, pages 664--670, New
+  York, NY, USA, 2006. ACM.
+
+\bibitem[LC87]{Lorensen:1987:MCH:37402.37422}
+William~E. Lorensen and Harvey~E. Cline.
+\newblock Marching cubes: A high resolution 3d surface construction algorithm.
+\newblock {\em SIGGRAPH Comput. Graph.}, 21:163--169, August 1987.
+
+\bibitem[SE05]{skjermo}
+Jo~Skjermo and Ole~Christian Eidheim.
+\newblock Polygon mesh generation of branching structures.
+\newblock In Heikki Kalviainen, Jussi Parkkinen, and Arto Kaarna, editors, {\em
+  Image Analysis}, volume 3540 of {\em Lecture Notes in Computer Science},
+  pages 109--122. Springer Berlin / Heidelberg, 2005.
+\newblock 10.1007/11499145\_76.
+
+\bibitem[She99]{Sherstyuk}
+Andrei Sherstyuk.
+\newblock {\em Convolution Surfaces in Computer Graphics}.
+\newblock PhD thesis, Monash, Monash, Australia, Australia, 1999.
+
+\bibitem[WGG98]{Wyvill:98a}
+Brian Wyvill, Eric Galin, and Andrew Guy.
+\newblock {The Blob Tree, Warping, Blending and Boolean Operations in an
+  Implicit Surface Modeling System}.
+\newblock {\em Implicit Surfaces}, 3, June 1998.
+\newblock Chosen for inclusion in a special issue of Computer Graphics Forum.
+
+\end{thebibliography}

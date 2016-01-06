@@ -1,0 +1,147 @@
+\title{Master Project - Real Time Rendering of skeletal structures - Motivations Goals and Plan}
+\author{
+        %\large
+        \textsc{Olivier Rouiller - s090842}
+        \mbox{}\\ %
+        Department of Informatics and Mathematical Modelling\\
+        Technical University of Denemark\\
+        \mbox{}\\ %
+}
+\date{\today}
+\documentclass[11pt]{article}
+%\documentclass{acmconf}
+
+\usepackage[paper=a4paper,dvips,top=1.5cm,left=1.5cm,right=1.5cm,
+    foot=1cm,bottom=1.5cm]{geometry}
+
+\usepackage{times}
+%\usepackage{graphicx}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsopn}
+\usepackage{xspace}
+\usepackage{array}
+\usepackage{epsfig}
+\usepackage{cite}
+\usepackage{pdfpages} 
+
+
+\numberwithin{figure}{section}
+
+\newcommand\CC{\Lang{\mbox{C++}}\xspace}
+\newcommand\Lang[1]{\textsc{#1}}
+\newcommand{\kw}[1]{\texttt{\textbf{#1}}}
+\newcommand{\cd}[1]{\texttt{#1}}
+
+\newcommand\Naturals{\ensuremath{\mathbb{N}}\xspace}
+\newcommand\Integers{\ensuremath{\mathbb{Z}}\xspace}
+\newcommand\Rationals{\ensuremath{\mathbb{Q}}\xspace}
+\newcommand\Reals{\ensuremath{\mathbb{R}}\xspace}
+\newcommand\Complex{\ensuremath{\mathbb{C}}\xspace}
+
+\newcommand\norm[1]{\ensuremath{\lVert#1\rVert}}
+\newcommand\abs[1]{\ensuremath{\lvert#1\rvert}}
+\newcommand\ceil[1]{\ensuremath{\lceil#1\rceil}}
+\newcommand\floor[1]{\ensuremath{\lfloor#1\rfloor}}
+\newcommand\set[1]{\ensuremath{\{#1\}}}
+\newcommand\angular[1]{\ensuremath{\langle#1\rangle}}
+
+\newcommand\Norm[1]{\ensuremath{\left\lVert#1\right\rVert}}
+\newcommand\Abs[1]{\ensuremath{\left\lvert#1\right\rvert}}
+\newcommand\Ceil[1]{\ensuremath{\left\lceil#1\right\rceil}}
+\newcommand\Floor[1]{\ensuremath{\left\lfloor#1\right\rfloor}}
+\newcommand\Set[1]{\ensuremath{\left\{#1\right\}}}
+\newcommand\Angular[1]{\ensuremath{\left\langle#1\right\rangle}}
+
+\newcommand{\LOOM}{\ensuremath{\cal{LOOM}}\xspace}
+\newcommand{\PolyTOIL}{\textbf{PolyTOIL}\xspace}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand\Cls[1]{\textsf{#1}}
+\newcommand\Fig[1]{Figure~\ref{Figure:#1}}
+
+\usepackage{labels} %
+\usepackage{equation}
+\usepackage{prog2tex}
+
+\newenvironment{excerpt}{\begin{quote}\begin{minipage}\textwidth}{\end{minipage}\end{quote}}
+
+\setcounter{topnumber}{0}
+\setcounter{bottomnumber}{0}
+\setcounter{totalnumber}{20}
+\renewcommand{\textfraction}{0.01}
+
+\begin{document}
+
+\maketitle
+
+\Section[simple]{Our problem}
+
+Design an algorithm to raytrace efficiently a implicit surface defined by a skeleton.
+\begin{itemize}
+
+\item{} The algorithm must raytrace the surface efficiently, if possible as fast as rasterizing a mesh.
+\item The algorithm must get the entire surface.
+\item The algorithm must allow dynamic skeleton.
+\item The algorithm must be integrable in a classical rendering pipeline (deferred or direct?).
+\item The algorithm must allow as many effect as possible.
+
+\end{itemize}
+
+How to speed up the ray-tracing?
+
+\begin{itemize}
+
+\item{} Shoot ray only where there is a surface intersection. Involves spatial subdivision techniques such as BVH, Octree, ...
+\item Speed up intersection. Choice of root finding algo, using geometry.
+\item Evaluate only the primitives that contributes at the point of evaluation. spatial sorting.
+
+\end{itemize}
+
+\Section[simple]{Techniques for raytracing Implicit surfaces}
+
+Hart gives a good intro to different techniques in Ray-Tracing implicit surfaces.
+
+\subsection{Polynomial Root Solving}
+
+Works for algebraic surfaces (in our scope).
+
+First work seems to be from Hanrahan \cite{Hanrahan:1983:RTA:800059.801136}. His method used "a symbolic
+algebra system to automatically derive the
+equation of intersection between the ray
+and the surface and then solves this equation
+using an exact polynomial root finding
+algorithm". This implies converting the space function of the surface to a univariate function along the ray and then solve this polynomial equation.
+Having the coefficients of the ray polynomial, numerical methods for root finding are used.
+
+
+The same approach is used in \cite{Loop:2006:RGR:1179352.1141939} but the univariate ray polynomial is computed using Bezier tetrahedra.
+
+\subsection{Interval analysis}
+
+A common method to find root of a function along ray is to use interval analysis, isolating the root in an interval then refining this interval to approximate the root. \cite{Mitchell:1990:RRI:93267.93276}.
+
+\subsection{Lipschitz methods}
+
+Interval analysis can be improved by using the local Lipschitz constant of the function at each iteration.
+
+\subsection{Sphere Tracing}
+
+Another method to raytrace an implicit surface is to use sphere tracing \cite{springerlink:10.1007/s003710050084}. 
+This method does not involve root finding but finds the first intersection of the ray with the surface.
+This relies on knowing the distance of the current point on the ray to the surface. If this distance is less than $\epsilon$, we found the intersection, otherwise we know that we can move forward with the distance to the surface. It seems that in the case of convolution surfaces, we know this distance.
+
+\clearpage
+
+\bibliography{../../references} 
+\bibliographystyle{alpha}
+
+\end{document}

@@ -1,0 +1,24 @@
+\begin{thebibliography}{1}
+
+\bibitem{Bruce:Cardeli:Castagna:96}
+K.~Bruce, L.~Cardeli, G.~Castagna, T.~H.~O. Group, G.~T. Leavens, and
+  B.~Pierce.
+\newblock On binary methods.
+\newblock {\em Theory and Practice of Object Systems}, 1(3), 1996.
+
+\bibitem{Bruce:Fiech:Peteresen:97}
+K.~Bruce, A.~Fiech, and L.~Peteresen.
+\newblock Subtyping is not a good match for object-oriented languages.
+
+\bibitem{Bruce:Fiech:Schuett:vanGent:95}
+K.~B. Bruce, A.~Fiech, A.~Schuett, and R.~van Gent.
+\newblock Poly\uppercase{TOIL}: A type-safe polymorphic object-oriented
+  language.
+\newblock pages 27--51.
+
+\bibitem{Gotsman:Surazhsky:01}
+C.~Gotsman and V.~Surazhsky.
+\newblock Guaranteed intersection-free polygon morphing.
+\newblock {\em Computers \& Graphics}, 25(1):67--75, Feb. 2001.
+
+\end{thebibliography}

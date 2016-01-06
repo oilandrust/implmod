@@ -1,0 +1,24 @@
+ADD_LIBRARY(UI
+	AnimationEditor.h
+	AnimationEditor.cpp
+	DisplayText.h
+	DisplayText.cpp
+	IEditor.h
+	IEditor.cpp
+	Input.cpp
+	Input.h
+	MainEditor.h
+	MainEditor.cpp
+	SkeletonEditor.h
+	SkeletonEditor.cpp
+	SurfaceEditor.h
+	SurfaceEditor.cpp
+	TextureEditor.h
+	TextureEditor.cpp
+	RigEditor.cpp
+	RigEditor.h
+)
+
+include_directories( 
+	${3RD_PARTY_INCLUDE_DIRS}
+)

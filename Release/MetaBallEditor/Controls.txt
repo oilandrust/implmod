@@ -1,0 +1,27 @@
+
+Contorls (h to hide): 
+
+    tab : switch mode
+    m : polygonize the implicit funtion
+    p : show polygolized model
+    t : render ray-traced
+    w : show/hide world reference
+    right button : pan camera
+    left button : rotate camera
+    middle button : zoom camera
+
+    View mode :
+
+        ctrl+s : save model as .skl file and mesh as .obj file
+        ctrl+o : open a .skl file
+        ctrl+n : create a new empty model
+        l : show mesh wireframe
+        r : reload shaders
+
+    Surface Editor mode
+
+        right clic + a : add a metaball
+        left clic : select a metaball
+        hold right button + t : translate the selected metaball
+        hold right button + s : scale the selected metaball
+        del : remove the selected metaball

@@ -1,0 +1,19 @@
+Comparison :
+
+modeling :
+-Smoothness
+-ease
+-compacity
+-simplicity of data structures
+
+rendering :
+-Bandwidth
+-LOD
+
+animation :
+-wrong blending
+-ease vs vertex painting
+-Artifacs
+
+Texturing :
+-warping

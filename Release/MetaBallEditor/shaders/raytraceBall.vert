@@ -1,0 +1,1 @@
+varying vec3 worldPos;void main(){	worldPos = gl_Vertex.xyz;	gl_Position = ftransform();}

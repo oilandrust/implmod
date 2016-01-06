@@ -1,0 +1,226 @@
+\title{02564, REAL-TIME GRAPHICS - Exercice 1 Getting to know shaders}
+\author{
+        %\large
+        \textsc{Olivier Rouiller - s090842}
+        \mbox{}\\ %
+        Department of Informatics and Mathematical Modelling\\
+        Technical University of Denemark\\
+        \mbox{}\\ %
+}
+\date{\today}
+\documentclass[11pt]{article}
+%\documentclass{acmconf}
+
+\usepackage[paper=a4paper,dvips,top=1.5cm,left=1.5cm,right=1.5cm,
+    foot=1cm,bottom=1.5cm]{geometry}
+
+\usepackage{times}
+%\usepackage{graphicx}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsopn}
+\usepackage{xspace}
+\usepackage{array}
+\usepackage{epsfig}
+
+\numberwithin{figure}{section}
+
+\newcommand\CC{\Lang{\mbox{C++}}\xspace}
+\newcommand\Lang[1]{\textsc{#1}}
+\newcommand{\kw}[1]{\texttt{\textbf{#1}}}
+\newcommand{\cd}[1]{\texttt{#1}}
+
+\newcommand\Naturals{\ensuremath{\mathbb{N}}\xspace}
+\newcommand\Integers{\ensuremath{\mathbb{Z}}\xspace}
+\newcommand\Rationals{\ensuremath{\mathbb{Q}}\xspace}
+\newcommand\Reals{\ensuremath{\mathbb{R}}\xspace}
+\newcommand\Complex{\ensuremath{\mathbb{C}}\xspace}
+
+\newcommand\norm[1]{\ensuremath{\lVert#1\rVert}}
+\newcommand\abs[1]{\ensuremath{\lvert#1\rvert}}
+\newcommand\ceil[1]{\ensuremath{\lceil#1\rceil}}
+\newcommand\floor[1]{\ensuremath{\lfloor#1\rfloor}}
+\newcommand\set[1]{\ensuremath{\{#1\}}}
+\newcommand\angular[1]{\ensuremath{\langle#1\rangle}}
+
+\newcommand\Norm[1]{\ensuremath{\left\lVert#1\right\rVert}}
+\newcommand\Abs[1]{\ensuremath{\left\lvert#1\right\rvert}}
+\newcommand\Ceil[1]{\ensuremath{\left\lceil#1\right\rceil}}
+\newcommand\Floor[1]{\ensuremath{\left\lfloor#1\right\rfloor}}
+\newcommand\Set[1]{\ensuremath{\left\{#1\right\}}}
+\newcommand\Angular[1]{\ensuremath{\left\langle#1\right\rangle}}
+
+\newcommand{\LOOM}{\ensuremath{\cal{LOOM}}\xspace}
+\newcommand{\PolyTOIL}{\textbf{PolyTOIL}\xspace}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand\Cls[1]{\textsf{#1}}
+\newcommand\Fig[1]{Figure~\ref{Figure:#1}}
+
+\usepackage{labels} %
+\usepackage{equation}
+\usepackage{prog2tex}
+
+\newenvironment{excerpt}{\begin{quote}\begin{minipage}\textwidth}{\end{minipage}\end{quote}}
+
+\setcounter{topnumber}{0}
+\setcounter{bottomnumber}{0}
+\setcounter{totalnumber}{20}
+\renewcommand{\textfraction}{0.01}
+
+\begin{document}
+
+\maketitle
+
+\Section{Part 1}
+\Ref{Section}{simple} uses the example of a covariant graph hierarchy to introduce
+    the concept of configuration classes, and the way they are used in the implementation.
+To make a smooth discourse, the presentation uses at this stage several
+    \CC macros, designed to hide some of the \CC lingo.
+We then continue in \Ref{Section}{special}
+h.
+
+\Section[simple]{A Covariant Graph Hierarchy Example}
+In this section, we give a quick introduction to our solution
+    of the covariance dilemma, showing how it might be used by a \CC programmer.
+For the purpose of exposition some of the intricate details are hidden
+    behind \texttt{\#define} macros.
+The fine details will be revealed in \Ref{Section}{recursive}.
+
+Most examples in the literature revolve around the theme of auto-covariance,
+    such as a class \Cls{Point} with an \Cls{equal} method,
+    specialized by \Cls{ColorPoint}.
+We will start with the more general case, as
+    illustrated in \Ref{Figure}{Graphs}.
+
+
+
+The figure illustrates a covariant hierarchy
+    modeling various entities in graph theory.
+The hierarchy is drawn from a 10KLOC \CC library
+    of algorithms of 2D shape morphing in computer
+    graphics~\cite{Gotsman:Surazhsky:01}.%
+\footnote{We hope that this real-life example is more appealing to our programming
+    intuition than \Cls{Animal}-\Cls{Hebivore}-\Cls{Dish}-\Cls{Food} sort
+    of examples sometimes used in the literature.
+There is no fundamental between the two.}
+The two classes \Cls{Vertex} and \Cls{Edge} comprise
+    a graph from the graph theory and describe the basic behavior and functionality.
+
+
+\begin{figure}[!htb]
+\CPP
+uniform sampler2D tex;
+
+varying vec3 norm, position;
+
+void main()
+{
+    vec4 color = gl_LightSource[0].ambient*vec4(0.2,0.2,0.2,0);
+    
+
+    vec3 normal = normalize(norm);
+    // If the normal points away from the viewer, flip it.
+	if(dot(normal,-position)<0.0) 
+		normal = -normal;
+    
+	// Compute dot product of normal and light source direction
+	float d = dot(normal,normalize(gl_LightSource[0].position.xyz));
+	vec3 h = normalize(gl_LightSource[0].halfVector.xyz);
+		
+	if(d>0.0)
+	{
+		color += d*gl_LightSource[0].diffuse*gl_FrontMaterial.diffuse;
+		float s = dot(normal, h);
+		if(s>0.0)
+		{
+			color += pow(s, gl_FrontMaterial.shininess)*
+				gl_LightSource[0].specular*gl_FrontMaterial.specular;
+		}
+	}
+	
+	// Simply multiply color by texture.
+	gl_FragColor = color* texture2D(tex, gl_TexCoord[0].xy);
+}
+
+\END\PROGb{}
+\caption{The actors of an undirected graph}
+\label{Figure:Graph}
+\end{figure} % Graph
+
+Three actors: \cd{Edge}, \cd{Vertex} and \cd{Graph}
+    are defined in the figure.
+If the type of an field, a method argument, or function return value
+    in an actor may take covariant specialization, then
+    this type must be declared as a \emph{role}.
+(Later we will see that roles are realized as
+    \kw{typedef}s in a class passed as an argument to the
+    class template which realizes an actor.)
+A definition of an actor starts with a series of
+    \cd{INTERACTS\_WITH} directives,
+    each declaring a role with which the actor may interact.
+There are three roles with which the actors in \Ref{Figure}{Graph} interact:
+    \cd{G} designating graphs, \cd{V} designating vertices,
+    and \cd{E} designating edges.
+Actor \cd{Graph}, for example, interacts
+    with roles \cd{V} and \cd{E}.
+
+Other than stating that a role is a type,
+    the role declaration does not place any explicit
+    constraints on it.
+Once the interacting roles are defined,
+    the definition of an actor is similar
+    to a \CC class definition, where roles can
+    be used anywhere types are used.
+For example, actor \cd{Edge} has a covariant constructor taking two arguments
+    whose type is the role \cd{E}, methods \cd{set\_first} and \cd{set\_second}
+    each taking a covariant argument, a method \cd{get\_first} with
+    a covariant return type, two covariant field definition (\cd{first}
+    and \cd{next}), and possibly more covariant and nonvariant member definitions.
+
+The body of an actor may, and usually will, place
+    implicit constraints  on the roles it interacts with.
+In the figure, actor \cd{Edge} makes the
+    assumption that type \cd{V} is such that
+    both \cd{V *} and \cd{V \&} are valid types.
+This assumption does not hold for example for the
+    type \cd{int \&}.
+More interesting assumptions on \cd{V} are made by, say,  the body of the method
+    \cd{set\_first(V)}:
+\begin{quote}
+\begin{minipage}{\textwidth}
+\CPP
+    set_first(V* v)
+    {
+        if (first != 0)
+            first->delete_edge(this);
+        first = v;
+        v->insert_edge(this)
+    }
+\END\PROGc{}
+\end{minipage}
+\end{quote}
+It is assumed in the above code excerpt that
+    role \cd{V} has two methods named \cd{delete\_edge}
+    and \cd{insert\_edge}
+    which can receive a parameter of the type of \kw{this}.
+For a set of actors $A$ which interact with a set of roles $R$,
+    let $c(A)$ be the set of assumptions that $A$ makes on $R$.%
+\footnote{
+    The definition of set $c(A)$ is deliberately very loose.
+We do not state what assumptions might be there,
+    how they are structured, etc.}
+
+
+\bibliography{main,practice,book,crossref}
+
+\bibliographystyle{abbrv}
+\end{document}

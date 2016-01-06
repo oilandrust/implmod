@@ -1,0 +1,20 @@
+This is BibTeX, Version 0.99cThe top-level auxiliary file: main.aux
+I couldn't open database file practice.bib
+---line 37 of file main.aux
+ : \bibdata{main,practice
+ :                       ,book,crossref}
+I'm skipping whatever remains of this command
+The style file: abbrv.bst
+Database file #1: main.bib
+A bad cross reference---entry "Bruce:Fiech:Schuett:vanGent:95"
+refers to entry "ECOOP:95", which doesn't exist
+A bad cross reference---entry "Bruce:Fiech:Peteresen:97"
+refers to entry "ECOOP:97", which doesn't exist
+Warning--I didn't find a database entry for "Rinat:00"
+Warning--I didn't find a database entry for "ECOOP:97"
+Warning--I didn't find a database entry for "ECOOP:95"
+Warning--empty booktitle in Bruce:Fiech:Peteresen:97
+Warning--empty year in Bruce:Fiech:Peteresen:97
+Warning--empty booktitle in Bruce:Fiech:Schuett:vanGent:95
+Warning--empty year in Bruce:Fiech:Schuett:vanGent:95
+(There were 3 error messages)

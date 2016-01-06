@@ -1,0 +1,32 @@
+ADD_LIBRARY(SklImp
+	Animation.h
+	Animation.cpp
+	BlobOperator.h
+	BlobOperator.cpp
+	BlobPrimitive.h
+	BlobPrimitive.cpp
+	BVH.h
+	BVH.cpp
+	BvhUtils.h
+	BvhUtils.cpp
+	Metaball.h
+	Metaball.cpp
+	MetaPrimitive.h
+	MetaPrimitive.cpp
+	MetaTube.h
+	MetaTube.cpp
+	SkeletalImplicit.h
+	SkeletalImplicit.cpp
+	SkeletalImplicitModel.h
+	SkeletalImplicitModel.cpp
+	Skeleton.h
+	Skeleton.cpp
+	TextureProjector.h
+	TextureProjector.cpp
+	HyperTexture.h
+	HyperTexture.cpp
+)
+
+include_directories( 
+	${3RD_PARTY_INCLUDE_DIRS}
+)

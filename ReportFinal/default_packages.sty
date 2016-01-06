@@ -1,0 +1,53 @@
+
+\usepackage[latin1]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+%\usepackage{colortbl}			
+%\usepackage[plainpages=false{hyperref}	%farve på referencer, plus at referencer virker som links
+%\hypersetup{colorlinks, urlcolor=blue}	%\url{} plus farven
+%\usepackage{nameref}
+
+\usepackage{graphicx}			% til inkludering af grafik/billeder
+%\usepackage{wrapfig}			%til float
+%\usepackage{subfig}			%subfloat
+\usepackage{placeins}			%til brug for FloatBarrier
+\usepackage{wrapfig}
+
+%\usepackage[pointedenum]{paralist}	%opsætning af liste
+\usepackage{amsmath,amssymb} % Husk disse pakker når du laver matematik!
+%\usepackage{longtable}
+
+\usepackage{fancyhdr}
+
+\usepackage{listings} % Til visning af kildekode, programudskrift mm.
+\lstset{
+ 	basicstyle=\footnotesize, 
+	commentstyle=\textit,
+	numbers=left,
+	numberstyle=\tiny,
+	stepnumber=1,
+	frame=single,
+	frameround=tttt,
+	showstringspaces=false,
+	inputencoding=latin1,
+	tabsize=4,
+	breaklines=true,
+	prebreak={\mbox{ $\hookleftarrow$}},
+	columns=fullflexible,  % meget pænere
+	extendedchars=true,    % æ, ø, å i kommentarer
+	language=matlab
+}
+
+\usepackage{lastpage}
+
+\usepackage{enumerate}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+
+% our own commands
+\newcommand{\p}{\vspace{1.5em}\noindent}
+%\newcommand{\vnorm}[2][ ]{\left|\left|#2\right|\right|_{#1}}
+\newcommand{\vnorm}[2][]{\left\Vert#2\right\Vert_{#1}}
+\newcommand{\Abs}[1]{\left|#1\right|}
+\newcommand{\cond}[2][]{\kappa\left(#2\right)_{#1}}
+\newcommand{\note}[1]{\fbox{\parbox{0.8\textwidth}{\textbf{#1}}}}

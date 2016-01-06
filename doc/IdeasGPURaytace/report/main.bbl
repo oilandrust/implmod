@@ -1,0 +1,29 @@
+\begin{thebibliography}{Han83}
+
+\bibitem[Han83]{Hanrahan:1983:RTA:800059.801136}
+Pat Hanrahan.
+\newblock Ray tracing algebraic surfaces.
+\newblock In {\em Proceedings of the 10th annual conference on Computer
+  graphics and interactive techniques}, SIGGRAPH '83, pages 83--90, New York,
+  NY, USA, 1983. ACM.
+
+\bibitem[Har96]{springerlink:10.1007/s003710050084}
+John~C. Hart.
+\newblock Sphere tracing: a geometric method for the antialiased ray tracing of
+  implicit surfaces.
+\newblock {\em The Visual Computer}, 12:527--545, 1996.
+\newblock 10.1007/s003710050084.
+
+\bibitem[LB06]{Loop:2006:RGR:1179352.1141939}
+Charles Loop and Jim Blinn.
+\newblock Real-time gpu rendering of piecewise algebraic surfaces.
+\newblock In {\em ACM SIGGRAPH 2006 Papers}, SIGGRAPH '06, pages 664--670, New
+  York, NY, USA, 2006. ACM.
+
+\bibitem[Mit90]{Mitchell:1990:RRI:93267.93276}
+D.~P. Mitchell.
+\newblock Robust ray intersection with interval arithmetic.
+\newblock In {\em Proceedings on Graphics interface '90}, pages 68--74,
+  Toronto, Ont., Canada, Canada, 1990. Canadian Information Processing Society.
+
+\end{thebibliography}

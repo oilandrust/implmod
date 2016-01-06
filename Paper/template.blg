@@ -1,0 +1,14 @@
+This is BibTeX, Version 0.99cThe top-level auxiliary file: template.aux
+The style file: acmsiggraph.bst
+Database file #1: ../references.bib
+Repeated entry---line 321 of file ../references.bib
+ : @inproceedings{Stich2009hpg
+ :                            ,
+I'm skipping whatever remains of this entry
+Warning--empty school in Bloomenthal:1996:SDN:238973
+Warning--empty organization in Loop:2006:RGR:1179352.1141939
+Warning--empty organization in Mitchell:1990:RRI:93267.93276
+Warning--empty school in Sherstyuk
+Warning--empty organization in Stich2009hpg
+Warning--empty organization in Tigges98texturemapping
+(There was 1 error message)

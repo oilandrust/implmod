@@ -1,0 +1,137 @@
+\documentclass[11pt,a4paper,english]{article}
+
+\usepackage{default_packages}
+\usepackage{pdfpages}
+\usepackage{prog2tex}
+
+\pagestyle{fancy}
+\cfoot{}
+\rfoot{Page \thepage\ of \pageref{LastPage}}
+ 
+\begin{document}
+	\input{titlepage}
+
+
+	\section{Preface}
+
+This report summarizes and presents my work during my master project at the Computer graphics and Image analysis at the Technical University of Denmark. This six-month work was focused on geometric modelling and rendering with implicit surfaces. My objective was to study recent methods for ray-tracing implicit surfaces on the GPU and to adapt them to render models modelled by their skeleton.
+
+The first part of this report presents the most relevant results of my work, it is presented on the form of a conference article.
+
+On the second section I present some work that was not successful enough to be put in the article.
+
+\includepdf[pages=1-8]{../Paper/template.pdf}
+\appendix
+\section{Towards a better scalability of the ray-tracing algorithm.}
+
+The algorithm to find the ray surface intersections That we presented is relatively fast but suffers from a poor scalability.
+The first reason is discarding the non contributing primitives, we evaluate the entire function for each test.
+Also, when we search for intersection by bisection, we evaluate the potential of all the primitives that whose surface of influence intersect the ray. To address this issue, \cite{Gourmel-2010-FBVH} use a fitted BVH. 
+
+I tried to adapt this algorithm for my surface representation but could't achieve better performances with it.
+In this appendix I describe my attempt to achieve better scalability.
+
+\subsection{Building the BVH}
+
+\subsubsection{Overview of the algorithm.}
+
+The BVH that we build is a BVH where the leaf nodes contain references to the primitives that have an influence inside their axis aligned bounding box. The BVH is built from top to bottom and at each stage, we split the AABB of the node and distribute to the two children the primitives of the node. Finding the splitting plane should be done using a Surface Area Heuristic \cite{}.
+The algorithm evaluates the cost of traversing the BVH during ray-tracing of several possible splits and choose the one that has the least heuristic cost.
+
+When splitting the node, primitives are distributed to the left child or to the right child according to their position with respect to the splitting plane. Then the primitives of the right child are tested for intersection with the primitives of the left child. The primitives that do intersect are added to the right child as split primitives. 
+
+Finally, the AABBs of the children are computed as the AABB of all the primitives that they contain intersected with the half AABB of the parent node.
+This way, the nodes do not overlap, are tightly enclosing the primitives that have an influence inside and contains references to these primitives.
+
+This property is convenient to be used with our bisection scheme.
+
+
+\subsubsection{Memory layout}
+
+The BVH has to be transferred to the GPU for ray traversal. As suggested in \cite{}, we transfer it as texture memory.
+To fit the memory layout of the texture memory, the BVH is encoded in a plain array where the children of a node $i$ are located at indices $2i+1$ and $2i+2$.
+
+\subsection{Traversing the BVH}
+
+The BVH is traversed from front to back, when we reach a leaf node, we try to find a point on the ray and inside the surface as described in the article. I no such point is found, we backtrack and visit other node farther on the ray. This algorithm requires to maintain a stack where we push the indices of the nodes that should be visited.
+
+\begin{algorithm}                      % enter the algorithm environment
+\caption{Traversing the BVH}          % give the algorithm a caption
+\label{travers}                           % and a label for \ref{} commands later in the document
+\begin{minipage}{0.9\textwidth}%
+\CPP
+int RayIntestectsBVH2(vec3 origine, vec3 dir){
+
+	vec4 bottomC;
+	vec4 topC;
+
+	top = 0;
+	int node = 0;
+	int c1;
+	int c2;
+	
+	push(node);
+	bool c1Closer = false;
+
+	while(top > 0){
+		//First non expanded node
+		node = pop();
+		
+		//Load the AABB of the node
+		bottomC = nodeBottom(node);
+		topC = nodeTop(node);
+		
+		//If this is a leaf check for intersection with the surface
+		if(bottomC.w != -1.0 || topC.w != -1.0){
+			if(rayIntersectsSurfaceInNode(origine, dir, node))
+				return node;
+		}else{
+			//Otherwise expand
+			c1 = child1(node);
+			c2 = child2(node);
+			
+			//Distances from the eye to the AABBS intersection
+			float d1;
+			float d2;
+			
+			//Test c1 for intersection
+			bottomC = nodeBottom(c1);
+			topC = nodeTop(c1);
+			bool c1Intersects = RayIntestectsAABB(origine, dir, bottomC.xyz, topC.xyz, d1);
+
+			//Test c2
+			bottomC = nodeBottom(c2);
+			topC = nodeTop(c2);
+			bool c2Intersects = RayIntestectsAABB(origine, dir, bottomC.xyz, topC.xyz, d2);
+	
+				
+			c1Closer = d1 <= d2;
+			
+			//Push the children if their intersect by order of distance to the eye
+			if( c1Intersects ){
+				if( c2Intersects ){
+					if( c1Closer ){
+						push(c2);
+						push(c1);
+					}else{
+						push(c1);
+						push(c2);
+					}
+				}else{
+					push(c1);
+				}
+			}else if( c2Intersects ){
+				push(c2);
+			}
+		}
+	}
+	return -1;
+}
+\END\PROGb{}
+
+
+
+	\clearpage
+	\bibliography{../references} 
+	\bibliographystyle{plain}
+\end{document}
